@@ -11,21 +11,24 @@ using namespace std;
 int main() {
     ifstream inFile;
     ofstream outFile;
-    char filename[50];
+    string filename;
     string line;
     string word;
     string words[50];
     int numWords;
     int wordLength;
+    int charNum;
 
     //open ifstream file
     cout << "\n\nWhat is the name of the file (ex: filename.txt)\n" << endl << "FILENAME: ";
-    cin >> filename;
+    filename = "test.txt";
+    //cin >> filename;
 	inFile.open(filename);
 
     //open ofstream file
     cout << "What is the name of the file you want to save to?\n" << endl << "FILENAME: ";
-	cin >> filename;
+    filename = "output.txt";
+	//cin >> filename;
     outFile.open(filename);
 
     //check if valid
@@ -34,10 +37,12 @@ int main() {
         return 1;
     }
 
+    //Where the work happens
     while(!inFile.eof()) {
         getline(inFile, line);
         word = "";
         numWords = 0;
+        charNum = 0;
 
         //remove commas
         line.erase(remove(line.begin(), line.end(), ','), line.end());
@@ -46,7 +51,7 @@ int main() {
         for (char i : line) {
 
             //check if end of word
-            if (i == ' ') {
+            if (i == ' ' || charNum == line.size()) {
                 words[numWords] = word;
                 word = "";
                 numWords++;
@@ -56,18 +61,19 @@ int main() {
             else {
                 word = word + i;
             }
+            charNum++;
         }
 
         //check if longer than 15
         for (int i = 0; i < numWords; i++) {
             wordLength = words[i].size();
-            //cout << words[i] << " ";
 
             //if too big remove from array
             if (wordLength > 15) {
                 //If last element
                 if (i == numWords - 1)  {
                     cout << "Successfully removed " << words[i] << endl;
+                    cout << "     size: " << wordLength;
                     numWords--;
                     break;
                 }
@@ -77,6 +83,7 @@ int main() {
                     words[j] = words[j+1];
                 
                 cout << "Successfully removed " << words[i] << endl;
+                cout << "     size: " << wordLength;
                 numWords--;
             }
         }
@@ -86,9 +93,11 @@ int main() {
             outFile << i << ", ";
         }
         outFile << endl;
+        
+        //goto next line
     }
     inFile.close();
-    outFile.close();\
+    outFile.close();
 
     cout << "done";
 
