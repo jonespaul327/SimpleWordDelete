@@ -33,13 +33,6 @@ int main() {
         cout<< "Cannot open input file!" << endl;
         return 1;
     }
-    
-    //check if valid
-    if(!outFile){
-        cout<< "Cannot open output file!" << endl;
-        return 1;
-    }
-
 
     while(!inFile.eof()) {
         getline(inFile, line);
@@ -68,19 +61,22 @@ int main() {
         //check if longer than 15
         for (int i = 0; i < numWords; i++) {
             wordLength = words[i].size();
+            //cout << words[i] << " ";
 
             //if too big remove from array
             if (wordLength > 15) {
                 //If last element
                 if (i == numWords - 1)  {
+                    cout << "Successfully removed " << words[i] << endl;
                     numWords--;
                     break;
                 }
 
                 //shift the array the one less word
-                for (int j = i; j < numWords; j++) {
+                for (int j = i; j < numWords; j++) 
                     words[j] = words[j+1];
-                }
+                
+                cout << "Successfully removed " << words[i] << endl;
                 numWords--;
             }
         }
@@ -92,7 +88,9 @@ int main() {
         outFile << endl;
     }
     inFile.close();
-    outFile.close();
+    outFile.close();\
+
+    cout << "done";
 
     return 0;
 }
