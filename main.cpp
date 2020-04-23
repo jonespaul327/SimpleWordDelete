@@ -67,7 +67,7 @@ int main() {
 
         //check if longer than 15
         for (int i = 0; i < numWords; i++) {
-            wordLength = size(words[i]);
+            wordLength = words[i].size();
 
             //if too big remove from array
             if (wordLength > 15) {
