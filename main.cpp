@@ -8,6 +8,8 @@ using namespace std;
 
 bool openFiles(ifstream &inFile, ofstream &outFile);
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
+void writeToFile(int numWords, string words[], ofstream outFile);
+void checkLength(int numWords, string words[]);
 //There will always be one word smaller than 16 characters
 //We want to preserve the lines 
 
@@ -37,37 +39,8 @@ int main() {
 
         //create array of words
         createWordsArray(line, numWords, 0, word, words);
-
-        //check if longer than 15
-        for (int i = 0; i < numWords; i++) {
-            wordLength = words[i].size();
-
-            //if too big remove from array
-            if (wordLength > 15) {
-                //If last element
-                if (i == numWords - 1)  {
-                    numWords--;
-                    break;
-                }
-
-                //shift the array the one less word
-                for (int j = i; j < numWords; j++) 
-                    words[j] = words[j+1];
-                
-                numWords--;
-            }
-        }
-
-        //Write to file
-        for (int i = 0; i < numWords; i++) {
-            if (i == numWords - 2 || numWords == 1) {
-                outFile << words[i];
-                break;
-            }
-
-            outFile << words[i] << ", ";
-        }
-        outFile << endl;
+        checkLength(numWords, words); 
+        writeToFile(numWords, words, outFile); 
 
         //goto next line of document
     }
@@ -117,4 +90,39 @@ void createWordsArray(string line, int &numWords, int charNum, string word, stri
         charNum++;
     }
     words[numWords] = word;
+}
+
+void writeToFile(int numWords, string words[], ofstream outFile) {
+    //Write to file
+    for (int i = 0; i < numWords; i++) {
+        if (i == numWords - 2 || numWords == 1) {
+            outFile << words[i];
+            break;
+        }
+
+        outFile << words[i] << ", ";
+    }
+    outFile << endl;
+}
+
+void checkLength(int numWords, string words[]) {
+    int wordLength;
+
+    for (int i = 0; i < numWords; i++) {
+        wordLength = words[i].size();
+        //if too big remove from array
+        if (wordLength > 15) {
+            //If last element
+            if (i == numWords - 1)  {
+                numWords--;
+                break;
+            }
+
+            //shift the array the one less word
+            for (int j = i; j < numWords; j++) 
+                words[j] = words[j+1];
+                    
+            numWords--;
+        }
+    }
 }
