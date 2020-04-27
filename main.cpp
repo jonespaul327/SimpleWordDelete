@@ -6,31 +6,32 @@
 
 using namespace std;
 
-bool openFiles(ifstream &inFile, ofstream &outFile);
+bool openFiles();
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
-void writeToFile(int numWords, string words[], ofstream outFile);
+void writeToFile(int numWords, string words[]);
 void checkLength(int numWords, string words[]);
+
+ifstream IN_FILE;
+ofstream OUT_FILE;
 //There will always be one word smaller than 16 characters
 //We want to preserve the lines 
 
 int main() {
     string *words = new string[100];
-    ifstream inFile;
-    ofstream outFile;
     string line;
     int wordLength;
     int charNum;
     bool good;
 
-    good = openFiles(inFile, outFile);
+    good = openFiles();
 
     if (good == 0)
         return 1;
 
     //Where the work happens
-    while(!inFile.eof()) {
+    while(!IN_FILE.eof()) {
         //get next line and reset vars
-        getline(inFile, line);
+        getline(IN_FILE, line);
         string word = "";
         int numWords = 0;
 
@@ -40,33 +41,33 @@ int main() {
         //create array of words
         createWordsArray(line, numWords, 0, word, words);
         checkLength(numWords, words); 
-        writeToFile(numWords, words, outFile); 
+        writeToFile(numWords, words); 
 
         //goto next line of document
     }
-    inFile.close();
-    outFile.close();
+    IN_FILE.close();
+    OUT_FILE.close();
 
     return 0;
 }
 
-bool openFiles(ifstream &inFile, ofstream &outFile) {
+bool openFiles() {
     string filename;
 
     //open ifstream file
     cout << "\n\nWhat is the name of the file (ex: filename.txt)\n" << endl << "FILENAME: ";
     filename = "input.txt";
     //cin >> filename;
-	inFile.open(filename);
+	IN_FILE.open(filename);
 
     //open ofstream file
     cout << "\nWhat is the name of the file you want to save to?\n" << endl << "FILENAME: ";
     filename = "output.txt";
 	//cin >> filename;
-    outFile.open(filename);
+    OUT_FILE.open(filename);
 
     //check if valid
-    if(!inFile){
+    if(!IN_FILE){
         cout<< "Cannot open input file!" << endl;
         return false;
     }
@@ -92,19 +93,6 @@ void createWordsArray(string line, int &numWords, int charNum, string word, stri
     words[numWords] = word;
 }
 
-void writeToFile(int numWords, string words[], ofstream outFile) {
-    //Write to file
-    for (int i = 0; i < numWords; i++) {
-        if (i == numWords - 2 || numWords == 1) {
-            outFile << words[i];
-            break;
-        }
-
-        outFile << words[i] << ", ";
-    }
-    outFile << endl;
-}
-
 void checkLength(int numWords, string words[]) {
     int wordLength;
 
@@ -125,4 +113,17 @@ void checkLength(int numWords, string words[]) {
             numWords--;
         }
     }
+}
+
+void writeToFile(int numWords, string words[]) {
+    //Write to file
+    for (int i = 0; i < numWords; i++) {
+        if (i == numWords - 2 || numWords == 1) {
+            OUT_FILE << words[i];
+            break;
+        }
+
+        OUT_FILE << words[i] << ", ";
+    }
+    OUT_FILE << endl;
 }
