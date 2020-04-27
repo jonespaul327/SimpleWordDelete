@@ -16,8 +16,6 @@ int main() {
     ifstream inFile;
     ofstream outFile;
     string line;
-    string word;
-    int numWords;
     int wordLength;
     int charNum;
     bool good;
@@ -31,8 +29,8 @@ int main() {
     while(!inFile.eof()) {
         //get next line and reset vars
         getline(inFile, line);
-        word = "";
-        numWords = 0;
+        string word = "";
+        int numWords = 0;
 
         //remove commas
         line.erase(remove(line.begin(), line.end(), ','), line.end());
