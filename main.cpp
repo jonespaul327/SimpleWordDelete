@@ -46,8 +46,6 @@ int main() {
             if (wordLength > 15) {
                 //If last element
                 if (i == numWords - 1)  {
-                    //cout << "Successfully removed " << words[i] << endl;
-                    //cout << "     size: " << wordLength;
                     numWords--;
                     break;
                 }
@@ -56,8 +54,6 @@ int main() {
                 for (int j = i; j < numWords; j++) 
                     words[j] = words[j+1];
                 
-                //cout << "Successfully removed " << words[i] << endl;
-                //cout << "     size: " << wordLength;
                 numWords--;
             }
         }
@@ -78,8 +74,6 @@ int main() {
     inFile.close();
     outFile.close();
 
-    cout << "done";
-
     return 0;
 }
 
@@ -88,12 +82,12 @@ bool openFiles(ifstream &inFile, ofstream &outFile) {
 
     //open ifstream file
     cout << "\n\nWhat is the name of the file (ex: filename.txt)\n" << endl << "FILENAME: ";
-    filename = "test.txt";
+    filename = "input.txt";
     //cin >> filename;
 	inFile.open(filename);
 
     //open ofstream file
-    cout << "What is the name of the file you want to save to?\n" << endl << "FILENAME: ";
+    cout << "\nWhat is the name of the file you want to save to?\n" << endl << "FILENAME: ";
     filename = "output.txt";
 	//cin >> filename;
     outFile.open(filename);
@@ -110,7 +104,6 @@ bool openFiles(ifstream &inFile, ofstream &outFile) {
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]) {
     for (char i : line) {
         //check if end of word
-        cout << i;
         if (i == ' ' || charNum == line.size()) {
             words[numWords] = word;
             word = "";
@@ -123,4 +116,5 @@ void createWordsArray(string line, int &numWords, int charNum, string word, stri
         }
         charNum++;
     }
+    words[numWords] = word;
 }
