@@ -7,7 +7,7 @@
 using namespace std;
 
 bool openFiles(ifstream &inFile, ofstream &outFile);
-void createWordsArray(string line, int &numWords, int charNum, string word);
+void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
 //There will always be one word smaller than 16 characters
 //We want to preserve the lines 
 
@@ -110,6 +110,7 @@ bool openFiles(ifstream &inFile, ofstream &outFile) {
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]) {
     for (char i : line) {
         //check if end of word
+        cout << i;
         if (i == ' ' || charNum == line.size()) {
             words[numWords] = word;
             word = "";
