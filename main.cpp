@@ -37,24 +37,8 @@ int main() {
         //remove commas
         line.erase(remove(line.begin(), line.end(), ','), line.end());
 
-        createWordsArray(line, numWords, 0, word, words);
-
         //create array of words
-        for (char i : line) {
-
-            //check if end of word
-            if (i == ' ' || charNum == line.size()) {
-                words[numWords] = word;
-                word = "";
-                numWords++;
-            }
-
-            //concatanate next char
-            else {
-                word = word + i;
-            }
-            charNum++;
-        }
+        createWordsArray(line, numWords, 0, word, words);
 
         //check if longer than 15
         for (int i = 0; i < numWords; i++) {
