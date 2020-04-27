@@ -118,12 +118,7 @@ void checkLength(int numWords, string words[]) {
 void writeToFile(int numWords, string words[]) {
     //Write to file
     for (int i = 0; i < numWords; i++) {
-        if (i == numWords - 2 || numWords == 1) {
-            OUT_FILE << words[i];
-            break;
-        }
-
         OUT_FILE << words[i] << ", ";
     }
-    OUT_FILE << endl;
+    OUT_FILE << words[numWords] << endl;
 }
