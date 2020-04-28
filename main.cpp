@@ -8,8 +8,8 @@ using namespace std;
 
 bool openFiles();
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
+void checkLength(int &numWords, string words[]);
 void writeToFile(int numWords, string words[]);
-void checkLength(int numWords, string words[]);
 
 ifstream IN_FILE;
 ofstream OUT_FILE;
@@ -38,7 +38,6 @@ int main() {
         //remove commas
         line.erase(remove(line.begin(), line.end(), ','), line.end());
 
-        //create array of words
         createWordsArray(line, numWords, 0, word, words);
         checkLength(numWords, words); 
         writeToFile(numWords, words); 
@@ -93,24 +92,25 @@ void createWordsArray(string line, int &numWords, int charNum, string word, stri
     words[numWords] = word;
 }
 
-void checkLength(int numWords, string words[]) {
+void checkLength(int &numWords, string words[]) {
     int wordLength;
 
-    for (int i = 0; i < numWords; i++) {
+    //Right now skips next element if detects bad
+    for (int i = 0; i <= numWords; i++) {
         wordLength = words[i].size();
         //if too big remove from array
         if (wordLength > 15) {
             //If last element
-            if (i == numWords - 1)  {
+            if (i == numWords)  {
                 numWords--;
                 break;
             }
-
             //shift the array the one less word
             for (int j = i; j < numWords; j++) 
                 words[j] = words[j+1];
                     
             numWords--;
+            i--;
         }
     }
 }
