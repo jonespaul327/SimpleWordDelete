@@ -57,12 +57,14 @@ bool openFiles() {
 
     //open ifstream file
     cout << "\n\nWhat is the name of the file (ex: filename.txt)\n" << endl << "FILENAME: ";
-    cin >> filename;
+    //cin >> filename;
+    filename = "input.txt";
 	IN_FILE.open(filename);
 
     //open ofstream file
     cout << "\nWhat is the name of the file you want to save to?\n" << endl << "FILENAME: ";
-	cin >> filename;
+	//cin >> filename;
+    filename = "output.txt";
     OUT_FILE.open(filename);
 
     //check if valid
@@ -116,15 +118,21 @@ void checkLength(int &numWords, string words[]) {
 }
 
 void checkDupes(int numWords, string words[]){
-    for (int i = 0; i < numWords; i++) {
-        if (words[i] == words[i+1]){
-            for (int j = i; j < numWords; j++) 
-                words[j] = words[j+1];
+    string temp;
+	for(int i = 0; i < numWords; i++){
+		temp = words[i];
 
-            numWords--;
-            i--;
-        }
-    }
+		for(int j = i + 1; j < numWords; j++){
+
+			if(temp == words[j]){
+
+                for(int k = j; i < numWords - 1; i++)
+                    words[i] = words[i + 1];
+
+                numWords--;			
+			}
+		}
+	
 }
 
 void writeToFile(int numWords, string words[]) {
