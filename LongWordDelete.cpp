@@ -9,6 +9,7 @@ using namespace std;
 bool openFiles();
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
 void checkLength(int &numWords, string words[]);
+void checkDupes(int numWords, string words[]);
 void writeToFile(int numWords, string words[]);
 
 ifstream IN_FILE;
@@ -40,6 +41,7 @@ int main() {
 
         createWordsArray(line, numWords, 0, word, words);
         checkLength(numWords, words); 
+        checkDupes(numWords, words);
         writeToFile(numWords, words); 
 
         //goto next line of document
@@ -107,6 +109,18 @@ void checkLength(int &numWords, string words[]) {
             for (int j = i; j < numWords; j++) 
                 words[j] = words[j+1];
                     
+            numWords--;
+            i--;
+        }
+    }
+}
+
+void checkDupes(int numWords, string words[]){
+    for (int i = 0; i < numWords; i++) {
+        if (words[i] == words[i+1]){
+            for (int j = i; j < numWords; j++) 
+                words[j] = words[j+1];
+
             numWords--;
             i--;
         }
