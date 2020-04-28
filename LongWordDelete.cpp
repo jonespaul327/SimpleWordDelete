@@ -55,14 +55,12 @@ bool openFiles() {
 
     //open ifstream file
     cout << "\n\nWhat is the name of the file (ex: filename.txt)\n" << endl << "FILENAME: ";
-    filename = "input.txt";
-    //cin >> filename;
+    cin >> filename;
 	IN_FILE.open(filename);
 
     //open ofstream file
     cout << "\nWhat is the name of the file you want to save to?\n" << endl << "FILENAME: ";
-    filename = "output.txt";
-	//cin >> filename;
+	cin >> filename;
     OUT_FILE.open(filename);
 
     //check if valid
