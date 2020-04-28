@@ -9,7 +9,7 @@ using namespace std;
 bool openFiles();
 void createWordsArray(string line, int &numWords, int charNum, string word, string words[]);
 void checkLength(int &numWords, string words[]);
-void checkDupes(int numWords, string words[]);
+void checkDupes(int &numWords, string words[]);
 void writeToFile(int numWords, string words[]);
 
 ifstream IN_FILE;
@@ -117,22 +117,21 @@ void checkLength(int &numWords, string words[]) {
     }
 }
 
-void checkDupes(int numWords, string words[]){
+void checkDupes(int &numWords, string words[]){
     string temp;
 	for(int i = 0; i < numWords; i++){
 		temp = words[i];
 
 		for(int j = i + 1; j < numWords; j++){
-
 			if(temp == words[j]){
 
-                for(int k = j; i < numWords - 1; i++)
+                for(int k = j; i < numWords; i++)
                     words[i] = words[i + 1];
 
                 numWords--;			
 			}
 		}
-	
+    }
 }
 
 void writeToFile(int numWords, string words[]) {
