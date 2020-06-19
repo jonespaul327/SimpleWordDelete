@@ -41,7 +41,7 @@ int main() {
 
         createWordsArray(line, numWords, 0, word, words);
         checkLength(numWords, words); 
-        checkDupes(numWords, words);
+        //checkDupes(numWords, words);
         writeToFile(numWords, words); 
 
         //goto next line of document
@@ -128,8 +128,8 @@ void checkDupes(int &numWords, string words[]){
                 for(int k = j; i < numWords; i++)
                     words[i] = words[i + 1];
 
-                numWords--;			
-			}
+                numWords--;
+            }
 		}
     }
 }
